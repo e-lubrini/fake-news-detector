@@ -1,4 +1,8 @@
-# Oaks: Fake News Detector
+
+# Online App for Knowledge Substantiation
+<p float="center">
+  <img src="https://github.com/e-lubrini/fake-news-detector/blob/main/logo.png" width="250" />
+</p>
 
 ## Abstract
 The aim of this project is to develop a software that provides users with a probability value reflecting the likelihood of an inputted news article being fake.
