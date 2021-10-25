@@ -10,7 +10,9 @@ The aim of this project is to develop a software that provides users with a prob
 ## Repo structure
 #### 📁 app
 &nbsp;&nbsp;&nbsp;&nbsp;📁 Extension
+
 &nbsp;&nbsp;&nbsp;&nbsp;📁 Modules
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 KB_module
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 NN_module
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 rule_based_module
