@@ -21,7 +21,7 @@ class CrossChecking:
 class NewsRetrieval:
     def __init__(self, period=None):
         if period:
-            self.googlenews = GoogleNews(period='7d')
+            self.googlenews = GoogleNews(period=period)
         else:
             self.googlenews = GoogleNews()
 
