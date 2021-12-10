@@ -1,3 +1,4 @@
+import re
 import spacy
 from fastpunct import FastPunct
 from nltk.corpus import stopwords
@@ -20,6 +21,7 @@ class FeatureBased:
         self.nlp.add_pipe('spacytextblob')
         self.text = None
         self.prep_doc = None
+        self.fastpunct = FastPunct()
         self.stopwords = set(stopwords.words('english'))
 
     def predict(self, text):
@@ -37,12 +39,26 @@ class FeatureBased:
         if self.excessivity:
             out['excessivity'] = self._excessivity_feature(text)
 
-        return out
+        tokens = [token.text for token in self.prep_doc]
+        ratio = int(len(tokens)*0.2)
+        if out['loaded language'][0] < 0 \
+        and out['lexical repetitions'][0] > ratio \
+        and out['plural forms'][0] > ratio \
+        and out['spelling mistakes'][0] > ratio \
+        and out['punctuation mistakes'][0] > ratio \
+        and out['excessivity'] is True \
+        and out['past'] is True:
+            answer = True
+        else:
+            answer = False
+
+        return answer, out
+
 
     def _emotional_feature(self, text):
         if self.text != text:
             self.text = text
-            self.prep_doc = nlp(text)
+            self.prep_doc = self.nlp(text)
         score = self.prep_doc._.polarity
         if self.explanation:
             expl = sum([x[0] for x in self.prep_doc._.assessments], [])
@@ -51,7 +67,7 @@ class FeatureBased:
     def _repetitions_feature(self, text):
         if self.text != text:
             self.text = text
-            self.prep_doc = nlp(text)
+            self.prep_doc = self.nlp(text)
         all_words = [token.lemma_ for token in self.prep_doc
                      if token.pos_ not in ['PUNCT', 'SYM']]
         repeated_words = list(set([word.lower() for word in all_words
@@ -61,7 +77,7 @@ class FeatureBased:
     def _plural_feature(self, text):
         if self.text != text:
             self.text = text
-            self.prep_doc = nlp(text)
+            self.prep_doc = self.nlp(text)
         plural_forms = []
         for token in self.prep_doc:
             if token.dep_ in ['nsubj', 'ROOT']:
@@ -75,7 +91,7 @@ class FeatureBased:
     def _spelling_feature(self, text):
         if self.text != text:
             self.text = text
-            self.prep_doc = nlp(text)
+            self.prep_doc = self.nlp(text)
         incorrect_words = [token.text for token in self.prep_doc
                            if Word(token.text.lower()).spellcheck()[0][0] != token.text.lower()]
         return (len(incorrect_words), incorrect_words)
@@ -83,10 +99,10 @@ class FeatureBased:
     def _punctuation_feature(self, text):
         if self.text != text:
             self.text = text
-            self.prep_doc = nlp(text)
-        corrected_text = fastpunct.punct(text)
+            self.prep_doc = self.nlp(text)
+        corrected_text = self.fastpunct.punct(text)
         prep_text = [token.text for token in self.prep_doc]
-        prep_cor_text = [token.text for token in nlp(corrected_text)]
+        prep_cor_text = [token.text for token in self.nlp(corrected_text)]
         if prep_text != prep_cor_text:
             return len(prep_cor_text) - len(prep_text), prep_cor_text
         else:
@@ -95,7 +111,7 @@ class FeatureBased:
     def _excessivity_feature(self, text):
         if self.text != text:
             self.text = text
-            self.prep_doc = nlp(text)
+            self.prep_doc = self.nlp(text)
         excl_mark = self.text.count('!')
         mult_excl_mark, excl_num = False, 0
         res = re.search('!!+', text)
@@ -106,3 +122,15 @@ class FeatureBased:
             return True, excl_mark + excl_num
         else:
             return False, 0
+
+        
+    def _past_feature(self, text):
+        if self.text != text:
+            self.text = text
+            self.prep_doc = self.nlp(text)
+        past = [x.text for x in self.prep_doc if x.morph.get('Tense') == ['Past']]
+        all_tenses = sum([1 for x in self.prep_doc if x.morph.get('Tense') != []])
+        if len(past)/all_tenses > 0.5:
+            return True, past
+        else:
+            return False, []
