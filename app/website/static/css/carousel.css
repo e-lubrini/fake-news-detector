@@ -91,3 +91,77 @@ body {
     margin-top: 7rem;
   }
 }
+
+/* CUSTOM */
+
+/* header */
+
+#logo {
+  height: 50px;
+  padding: inherit;
+  margin: 0.5em;
+}
+
+.form-control{
+  background-color: transparent;
+}
+
+.form-control:focus{
+  background-color: transparent;
+  color: white;
+}
+
+.btn-outline-success {
+  color: white;
+  border-color: white;
+}
+
+.btn-outline-success:hover {
+  color: black;
+  background-color: white;
+  border-color: white;
+}
+
+/* homepage */
+
+.carousel-inner .bd-placeholder-img{
+  background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(https://ticklehead.files.wordpress.com/2015/03/tree171.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.btn-primary {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+}
+
+.btn-primary:hover {
+  color: transparent;
+  background-color: white;
+  border-color: white;
+  color: black;
+}
+
+
+/* team */
+
+.row {
+  justify-content: space-between;
+  justify-content: space-around;
+}
+
+
+[role="img"] {
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#elisa {
+  background-image: url(https://media-exp1.licdn.com/dms/image/C4D03AQG6qGrEtBqEYg/profile-displayphoto-shrink_400_400/0/1592065975947?e=1646265600&v=beta&t=sLvsYgrQudEEDmIhltJVSpIqk-653U37Z5yGSWAk3tw);
+}
+
+#anna {
+  background-image: url(https://media-exp1.licdn.com/dms/image/C5603AQHARWUFG_HECw/profile-displayphoto-shrink_800_800/0/1605094421815?e=1646265600&v=beta&t=iJN3gQLDRgrlBtDZx0pQ8yF8XT0_dxkNaP00J8nFHTU);
+}

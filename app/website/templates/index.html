@@ -14,6 +14,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-social.css" rel="stylesheet">
+    <link href="../static/css/font-awesome.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -40,20 +42,18 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Carousel</a>
+      <a href="#myCarousel"><img id=logo src="https://github.com/e-lubrini/oaks/blob/main/img/logos/logo_w.png?raw=true" alt="OAKS" class="nav-link active" aria-current="page"></a>
+      <a class="navbar-brand" href="#"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#features">Features</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
+            <a class="nav-link" href="#team">About Us</a>
           </li>
         </ul>
         <form class="d-flex">
@@ -75,16 +75,16 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
-
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"></svg>
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>Example headline.</h1>
-            <p>Some representative placeholder content for the first slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+            <p>Online App for Knowledge Substantiation</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Check an article</a></p>
           </div>
         </div>
       </div>
+      <!--
       <div class="carousel-item">
         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
 
@@ -92,7 +92,7 @@
           <div class="carousel-caption">
             <h1>Another example headline.</h1>
             <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+            <p><a class="btn btn-lg btn-primary" href="#">Analyse Article</a></p>
           </div>
         </div>
       </div>
@@ -108,6 +108,8 @@
         </div>
       </div>
     </div>
+    -->
+    <!--
     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -116,39 +118,15 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+    -->
   </div>
 
-
+   
   <!-- Marketing messaging and featurettes
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
 
-  <div class="container marketing">
-
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
-        <h2>Heading</h2>
-        <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
-        <h2>Heading</h2>
-        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
-        <h2>Heading</h2>
-        <p>And lastly this, the third column of representative placeholder content.</p>
-        <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
+  <div id='features' class="container marketing">
 
 
     <!-- START THE FEATURETTES -->
@@ -196,13 +174,44 @@
 
     <!-- /END THE FEATURETTES -->
 
+    <!-- Three columns of text below the carousel -->
+    <div id='team' class="row">
+      <div class="col-lg-4">
+        <svg id='elisa' class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+          <!--<rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>--></svg>
+
+        <h2>Elisa Lubrini</h2>
+        <p></p>
+        <a class="btn btn-social-icon btn-linkedin" href='https://www.linkedin.com/in/elisalubrini/' target=”_blank”>
+          <span class="fa fa-linkedin"></span></a>
+        <a class="btn btn-social-icon btn-github" href='https://github.com/e-lubrini/' target=”_blank”>
+            <span class="fa fa-github"></span></a>
+        <a class="btn btn-social-icon btn-google" href='mailto:lubrinie@gmail.com'>
+          <span class="fa fa-google"></span></a>   
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <svg id='anna' class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+          <!--<rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>--></svg>
+
+        <h2>Anna Mosolova</h2>
+        <p></p>
+        <a class="btn btn-social-icon btn-linkedin" href='https://www.linkedin.com/in/anna-mosolova-5a06a51bb/' target=”_blank”>
+          <span class="fa fa-linkedin"></span></a>
+        <a class="btn btn-social-icon btn-github" href='https://github.com/anya-bel' target=”_blank”>
+            <span class="fa fa-github"></span></a>   
+        <a class="btn btn-social-icon btn-google" href='mailto:a.mosolova333@gmail.com'>
+            <span class="fa fa-google"></span></a>        
+      </div><!-- /.col-lg-4 -->
+ 
+    </div><!-- /.row -->
+
   </div><!-- /.container -->
 
 
   <!-- FOOTER -->
   <footer class="container">
     <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <p>&copy; 2022 Elisa Lubrini &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
   </footer>
 </main>
 
