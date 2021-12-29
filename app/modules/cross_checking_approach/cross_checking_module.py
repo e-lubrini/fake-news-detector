@@ -1,7 +1,8 @@
+from statistics import mean
 import torch
 from GoogleNews import GoogleNews
 from sklearn.metrics.pairwise import cosine_similarity
-from transformers import BertTokenizer, BertModel, PegasusForConditionalGeneration, PegasusTokenizer
+from transformers import BertTokenizer, BertModel, PegasusForConditionalGeneration, PegasusTokenizer, AlbertTokenizer, AlbertModel
 
 
 class CrossChecking:
@@ -16,6 +17,15 @@ class CrossChecking:
         output2 = self.model(**encoded_input2)
         result = cosine_similarity(output1['pooler_output'].detach().numpy(), output2['pooler_output'].detach().numpy())
         return result[0][0]
+    
+    def news_similarity(self, original, texts):
+        probs = []
+        for text in texts:
+            prob = self.texts_similarity(original, text)
+            probs.append(prob)
+        if len(probs) > 0:
+            return mean(probs)
+        return 0
 
 
 class NewsRetrieval:
@@ -27,7 +37,7 @@ class NewsRetrieval:
 
     def retrieve(self, summary):
         self.googlenews.get_news(summary)
-        output = googlenews.get_texts()
+        output = self.googlenews.get_texts()
         self.googlenews.clear()
         return output
 
@@ -53,3 +63,22 @@ class Summarizer:
             output = output[0]
 
         return output
+    
+class CheckText:
+    def __init__(self, summarizer='textrank', threshold=0.96, emb_model='albert-large-v2'):
+        self.summarizer = summarizer
+        self.threshold = threshold
+        self.summarizer = Summarizer(length=500, model_name=self.summarizer)
+        tokenizer = AlbertTokenizer.from_pretrained(emb_model)
+        model = AlbertModel.from_pretrained(emb_model)
+        self.crosschecking = CrossChecking(tokenizer, model)
+        self.newsretrieval = NewsRetrieval()
+        
+    def check(self, text):
+        if len(text.split()) > 512:
+            text = self.summarizer.summarize(text)
+        texts = self.newsretrieval.retrieve(text)
+        score = self.crosschecking.news_similarity(text, texts)
+        if score > self.threshold:
+            return True
+        return False
