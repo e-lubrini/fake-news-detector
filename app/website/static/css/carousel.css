@@ -94,6 +94,10 @@ body {
 
 /* CUSTOM */
 
+body {
+  padding-bottom: 0;
+}
+
 /* header */
 
 #logo {
@@ -137,13 +141,23 @@ body {
   border-color: white;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus {
   color: transparent;
-  background-color: white;
-  border-color: white;
+  background-color: #fcba06;
+  border-color: #fcba06;
   color: black;
+  box-shadow: None;
 }
 
+/* features */
+
+#feature1 {
+  background-image: url(https://github.com/e-lubrini/oaks/tree/main/img/news.png);
+}
+
+#feature2 {
+  background-image: url(https://cdni.iconscout.com/illustration/premium/thumb/business-statistics-3678870-3162887.png);
+}
 
 /* team */
 
@@ -155,7 +169,7 @@ body {
 
 [role="img"] {
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 
 #elisa {
