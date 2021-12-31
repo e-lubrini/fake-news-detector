@@ -152,7 +152,7 @@ body {
 /* features */
 
 #feature1 {
-  background-image: url(https://github.com/e-lubrini/oaks/tree/main/img/news.png);
+  background-image: url(https://github.com/e-lubrini/oaks/blob/main/app/website/static/img/news.png?raw=true);
 }
 
 #feature2 {
