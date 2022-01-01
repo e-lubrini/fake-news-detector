@@ -5,6 +5,7 @@ from statistics import mean, mode, median
 
 import matplotlib.pyplot as plt
 import nltk
+nltk.download('stopwords')
 import pandas as pd
 import torch
 import torch.nn as nn

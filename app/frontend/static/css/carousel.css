@@ -109,11 +109,6 @@ main {
   margin-bottom: 0pt;
 }
 
-a {
-  color: inherit;
-  text-decoration:inherit;
-}
-
 .anchor {
   display: block; position: relative; top: -7rem; visibility: hidden;
 }
@@ -122,10 +117,7 @@ a {
   background-color: white;
   margin: 0pt;
   max-width: 100%;
-  padding-left: 5rem;
-  padding-right: 5rem;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding: 5rem;
   margin-top: 5rem;
   text-align: center;
 }
@@ -275,4 +267,12 @@ footer.container{
 input.form-control, input.form-control:hover, input.form-control:active, input.form-control:focus {
   border: transparent;
   color: lightgray;
+}
+
+/* RESULTS */
+
+#results1 {
+  background-image: url('https://cdn.dribbble.com/users/135634/screenshots/4843483/800.png');
+  background-position: center;
+  background-size: 95%;
 }

@@ -15,12 +15,20 @@ Bootstrap(app)
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 
+print(os.getcwd())
+
 @app.route('/') # converts the return value into an HTTP response to be displayed by an HTTP client
 def index():
-    print('HERE')
     form = URLForm()
-    if form.validate_on_submit():
-        pass # do something
-    return render_template('index.html', form=form)
+    return render_template('website/index.html', form=form)
+@app.route('/')
 def popup():
-    return render_template('popup.html')
+    return render_template('extensions/popup.html')
+
+@app.route('/', methods=['POST'])
+def handle_data():
+    form = URLForm()
+    url = request.form.get('url',0)
+    from .. backend import pipeline
+    results = pipeline.start(url)
+    return render_template('results.html', likelihood=results['likelihood'])

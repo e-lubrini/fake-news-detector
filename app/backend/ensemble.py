@@ -1,7 +1,8 @@
-from feature_based_approach.feature_based import FeatureBased
-from cross_checking_approach.cross_checking_module import CheckText
-from neural_network_approach.neural_network import NeuralNetwork, RNNclassifier
-
+from .feature_based_approach.feature_based import FeatureBased
+from .cross_checking_approach.cross_checking_module import CheckText
+from .neural_network_approach.neural_network import NeuralNetwork, RNNclassifier
+import torch
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class Ensembling:
     def __init__(self, name='averaging', device=device, nn_ckpt='model.pt', nn_w2t='word2token.pkl'):
