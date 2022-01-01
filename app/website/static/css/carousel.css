@@ -14,7 +14,7 @@ body {
 
 /* Carousel base class */
 .carousel {
-  margin-bottom: 4rem;
+  margin-bottom: 0rem;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -95,7 +95,29 @@ body {
 /* CUSTOM */
 
 body {
-  padding-bottom: 0;
+  padding-bottom: 0rem;
+  background-color: transparent;
+  background-image: url(https://ticklehead.files.wordpress.com/2015/03/tree171.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+main {
+  background: rgba(29, 25, 80, 0.85);
+  margin-bottom: 0pt;
+}
+
+.container-marketing {
+  background-color: white;
+  margin: 0pt;
+  max-width: 100%;
+  padding-left: 5rem;
+  padding-right: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  margin-top: 5rem;
+  text-align: center;
 }
 
 /* header */
@@ -110,9 +132,11 @@ body {
   background-color: transparent;
 }
 
-.form-control:focus{
+.form-control:hover, .form-control:active:focus, .form-control:active, .form-control:focus{
   background-color: transparent;
   color: white;
+  border-color: white;
+  box-shadow: None;
 }
 
 .btn-outline-success {
@@ -120,19 +144,17 @@ body {
   border-color: white;
 }
 
-.btn-outline-success:hover {
+.btn-outline-success:hover, .btn-outline-success:active:focus, .btn-outline-success:active, .btn-outline-success:focus{
   color: black;
   background-color: white;
   border-color: white;
+  box-shadow: None;
 }
 
 /* homepage */
 
-.carousel-inner .bd-placeholder-img{
-  background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(https://ticklehead.files.wordpress.com/2015/03/tree171.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+h1 {
+  color: #fcba06;
 }
 
 .btn-primary {
@@ -151,21 +173,43 @@ body {
 
 /* features */
 
+.featurette-divider {
+  margin: 3rem 0;
+}
+
 #feature1 {
-  background-image: url(https://github.com/e-lubrini/oaks/blob/main/app/website/static/img/news.png?raw=true);
+  background-image: url('../img/news.svg');
 }
 
 #feature2 {
-  background-image: url(https://cdni.iconscout.com/illustration/premium/thumb/business-statistics-3678870-3162887.png);
+  background-image: url('../img/stats.webp');
 }
 
 /* team */
+.section-heading{
+  text-align: center;
+  margin-bottom: 3rem;
+  background-color: white;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
 
 .row {
   justify-content: space-between;
   justify-content: space-around;
 }
 
+#team {
+  background-image: url('../img/confetti.png');
+  background-repeat: no-repeat;
+  }
+
+.col-lg-4{
+  padding-bottom: 5rem;
+  background-color: white;
+}
 
 [role="img"] {
   background-repeat: no-repeat;
@@ -178,4 +222,11 @@ body {
 
 #anna {
   background-image: url(https://media-exp1.licdn.com/dms/image/C5603AQHARWUFG_HECw/profile-displayphoto-shrink_800_800/0/1605094421815?e=1646265600&v=beta&t=iJN3gQLDRgrlBtDZx0pQ8yF8XT0_dxkNaP00J8nFHTU);
+}
+
+/* footer */
+footer.container{
+  background-color: white;
+  padding: 3rem;
+  max-width: 100%;
 }
