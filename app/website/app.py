@@ -9,3 +9,5 @@ Bootstrap(app)
 @app.route('/') # converts the return value into an HTTP response to be displayed by an HTTP client
 def index():
     return render_template('index.html')
+def popup():
+    return render_template('popup.html')

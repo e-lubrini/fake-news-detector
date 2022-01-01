@@ -101,6 +101,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  min-width:300px;
 }
 
 main {
@@ -202,8 +203,9 @@ h1 {
 }
 
 #team {
-  background-image: url('../img/confetti.png');
-  background-repeat: no-repeat;
+  background-image: url('../img/confetti_l.png'), url('../img/confetti_r.png');
+  background-position: left top, right bottom;
+  background-repeat: no-repeat, no-repeat;
   }
 
 .col-lg-4{
