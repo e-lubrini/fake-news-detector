@@ -10,12 +10,13 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
 
-    
-
     <!-- Bootstrap core CSS -->
     <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../static/css/bootstrap-social.css" rel="stylesheet">
     <link href="../../static/css/font-awesome.css" rel="stylesheet">
+
+    <script src="../../static/js/bootstrap.bundle.min.js"></script>
+
 
     <style>
       .bd-placeholder-img {
@@ -59,23 +60,57 @@
     </div>-->
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"></svg>
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>Get your facts straight!</h1>
             <p>Try our Online App for Knowledge Substantiation</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Check an article</a></p>
           </div>
         </div>
       </div>
+  </div>
+  <div id="url_form">
+    <div id=url_card class="card card-body">
+      <form action="{{ url_for('handle_data') }}" method="post">
+        <div class="form-group">
+          <!-- <label for="URL">Article URL</label> -->
+          <p><input name=url type="url" class="form-control" id="URL" aria-describedby="URLHelp" placeholder="Enter URL">
+          <!-- <small id="URLHelp" class="form-text text-muted">Paste your URL here..</small> -->
+          <br>
+          <a href='results.html'; name=url type="submit" class="btn btn-primary">Results</a>
+          <button name=url type="submit" class="btn btn-primary">Check</button></p>
+        </div>
+      </form>
     </div>
   </div>
+
+
+  <div id="results" class="collapse">
+    <div id=results_card class="card card-body">
+      <div id="home" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="container">
+              <div class="carousel-caption text-start">
+              </div>
+            </div>
+        </div>
+    <div id='features' class="container-marketing">
+
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">The likelihood of this article to be fake is of <span class="text-muted">{{ likelihood }}%</span></h2>
+            <p class="lead">More features are coming, such as statistics and algorithm instights... <br>Stay tuned!</p>
+          </div>
+          <div class="col-md-5">
+            <svg id=results1 class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"></svg>
+    
+          </div>
+        </div>
+    
+        <hr class="featurette-divider">
+    </div>
+  </div>
+  </div>
       
-</main>
-
-
-    <script src="../static/js/bootstrap.bundle.min.js"></script>
-
-      
+</main>  
   </body>
 </html>
