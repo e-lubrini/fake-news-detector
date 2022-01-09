@@ -1,0 +1,25 @@
+import subprocess
+import urllib.parse
+
+txt = '''
+This is a sample sentence.
+'''
+
+## TODO split sentences and process individually
+
+try:
+    with open('token.txt') as f:
+        token = f.readline()
+except:
+    print('No token found!')
+
+outputfile_name = 'try.ttl'
+
+encoded_txt = urllib.parse.quote(txt)
+print(encoded_txt)
+
+bashCmd = 'curl -X GET "http://wit.istc.cnr.it/stlab-tools/fred/?text=' + encoded_txt + '&semantic-subgraph=true" -H  "accept: text/turtle" -H  "Authorization: Bearer ' + token + '" >> ' + outputfile_name
+
+process = subprocess.Popen(bashCmd,
+                            shell=True,
+                            stdout=subprocess.PIPE)
