@@ -18,7 +18,7 @@ def start(article_url):
     DummyPercentage = 3.14
 
     results = dict(likelihood=DummyPercentage)
-    results = dict(likelihood=round(prediction[1].count(True)/3, 2)*100)
+    results = dict(likelihood=round((1-prediction[1].count(True)/3), 2)*100)
     print(results)
     return results
 
