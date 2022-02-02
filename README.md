@@ -1,7 +1,6 @@
-
-# Online App for Knowledge Substantiation [Work In Progress]
+<h1 align="center">Online App for Knowledge Substantiation</h2>
 <p float="center">
-  <img src="https://github.com/e-lubrini/fake-news-detector/blob/main/img/logos/logo_g.png" width="250" />
+  <img align="center" src="https://github.com/e-lubrini/fake-news-detector/blob/main/img/logos/logo_g.png" width="250" />
 </p>
 
 ## Abstract
