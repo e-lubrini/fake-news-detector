@@ -10,7 +10,7 @@ class Text2Triple:
 
     def convert_sentences(self,sentences):
         with TemporaryDirectory() as tmpdir:
-            tmpfile = os.sep.join((tmpdir,"test.txt"))
+            tmpfile = os.sep.join((tmpdir,"data/test.txt"))
 
             with open(tmpfile,"w+") as f:
                 for s in sentences: f.write(s + "\n")

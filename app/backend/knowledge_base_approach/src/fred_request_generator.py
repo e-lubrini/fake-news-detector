@@ -2,7 +2,7 @@ import subprocess
 import urllib.parse
 
 txt = '''
-This is a sample sentence.
+Unicorns are real
 '''
 
 ## TODO split sentences and process individually
@@ -13,7 +13,7 @@ try:
 except:
     print('No token found!')
 
-outputfile_name = 'try.ttl'
+outputfile_name = 'data/try.ttl'
 
 encoded_txt = urllib.parse.quote(txt)
 print(encoded_txt)
