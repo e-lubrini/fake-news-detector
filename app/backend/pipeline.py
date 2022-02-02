@@ -1,13 +1,13 @@
 import argparse
 
 
-from neural_network_approach.neural_network import RNNclassifier
+from .neural_network_approach.neural_network import RNNclassifier
 
 
 def start(article_url):
     print('Backend pipeline started\nURL:',article_url)
-    from ensemble import Ensembling
-    from parse_url import parse_link
+    from .ensemble import Ensembling
+    from .parse_url import parse_link
     
     text = parse_link(article_url)
 

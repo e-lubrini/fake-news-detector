@@ -6,7 +6,7 @@ import torch
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class Ensembling:
-    def __init__(self, name='averaging', device=device, nn_ckpt='models/newmodel.pt', nn_w2t='models/word2token.pkl'):
+    def __init__(self, name='averaging', device=device, nn_ckpt='../../backend/models/newmodel.pt', nn_w2t='../../backend/models/word2token.pkl'):
         self.name = name
         self.device = device
         self.feba = FeatureBased()
