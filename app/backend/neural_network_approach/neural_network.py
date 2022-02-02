@@ -85,7 +85,7 @@ def train_model(model, dataloader, dev_dataloader, epoches, optim=optim.RMSprop,
             pred = model(sentence, attention_ids, length)
             loss = binary(pred.view(-1), label.type(torch.float32))
             if i % 10 == 0:
-                torch.save(model, 'model.pt')
+                torch.save(model.state_dict(), 'model.pt')
                 predicted = []
                 true = []
                 with torch.no_grad():
@@ -97,7 +97,7 @@ def train_model(model, dataloader, dev_dataloader, epoches, optim=optim.RMSprop,
                 f1 = f1_score(true, predicted, average='macro')
                 if f1 > best_f:
                     model.eval()
-                    torch.save(model, f"{round(f1, 3)}model.pt")
+                    torch.save(model.state_dict(), f"{round(f1, 3)}model.pt")
                     model.train()
                     best_f = f1
                     print("Saving with score", best_f)
@@ -130,9 +130,10 @@ class NeuralNetwork:
         
     def fit(self, X_train=None, y_train=None, X_val=None, y_val=None, ckpt=None, w2t=None):
         if ckpt:
-            self.model = torch.load(ckpt)
             with open(w2t, 'rb') as handle:
                 self.word2token = pickle.load(handle)
+            self.model = RNNclassifier(self.device, len(self.word2token), hidden_size=25)
+            self.model.load_state_dict(torch.load(ckpt))
         else:
             self.fill_dict(X_train)
             trainds = Dataset(X_train, y_train, 50, self.word2token, self.device)

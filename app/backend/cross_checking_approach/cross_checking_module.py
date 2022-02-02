@@ -1,5 +1,6 @@
 from statistics import mean
 import torch
+from summa.summarizer import summarize
 from GoogleNews import GoogleNews
 from sklearn.metrics.pairwise import cosine_similarity
 from transformers import BertTokenizer, BertModel, PegasusForConditionalGeneration, PegasusTokenizer, AlbertTokenizer, AlbertModel
@@ -10,36 +11,36 @@ class CrossChecking:
         self.tokenizer = tokenizer
         self.model = model
 
-    def texts_similarity(self, text1, text2):
-        encoded_input1 = self.tokenizer(text1, return_tensors='pt')
+    def texts_similarity(self, orig_text, texts):
+        encoded_input1 = self.tokenizer(orig_text, return_tensors='pt', truncation=True, max_length=512)
         output1 = self.model(**encoded_input1)
-        encoded_input2 = self.tokenizer(text2, return_tensors='pt')
+        encoded_input2 = self.tokenizer.batch_encode_plus(texts, padding=True, return_tensors='pt')
         output2 = self.model(**encoded_input2)
         result = cosine_similarity(output1['pooler_output'].detach().numpy(), output2['pooler_output'].detach().numpy())
-        return result[0][0]
+        return result[0]
     
     def news_similarity(self, original, texts):
         probs = []
-        for text in texts:
-            prob = self.texts_similarity(original, text)
-            probs.append(prob)
-        if len(probs) > 0:
-            return mean(probs)
+        if texts != []:
+            probs = self.texts_similarity(original, texts)
+            if len(probs) > 0:
+                return mean(probs)
         return 0
 
 
 class NewsRetrieval:
-    def __init__(self, period=None):
+    def __init__(self, period=None, top_n=20):
         if period:
             self.googlenews = GoogleNews(period=period)
         else:
             self.googlenews = GoogleNews()
+        self.top_n = top_n
 
     def retrieve(self, summary):
         self.googlenews.get_news(summary)
         output = self.googlenews.get_texts()
         self.googlenews.clear()
-        return output
+        return output[:self.top_n]
 
 
 class Summarizer:

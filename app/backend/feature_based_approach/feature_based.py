@@ -8,7 +8,7 @@ from textblob import Word
 
 class FeatureBased:
     def __init__(self, emotional=True, repetitions=True, plural=True, spelling=True,
-                 explanation=True, punctuation=True, excessivity=True):
+                 explanation=True, punctuation=True, excessivity=True, past=True):
         self.explanation = explanation
         self.emotional = emotional
         self.repetitions = repetitions
@@ -16,6 +16,7 @@ class FeatureBased:
         self.spelling = spelling
         self.punctuation = punctuation
         self.excessivity = excessivity
+        self.past = past
 
         self.nlp = spacy.load('en_core_web_sm')
         self.nlp.add_pipe('spacytextblob')
@@ -24,7 +25,19 @@ class FeatureBased:
         self.fastpunct = FastPunct()
         self.stopwords = set(stopwords.words('english'))
 
-    def predict(self, text):
+    def predict(self, text, params=None):
+        """
+        params (dict) :
+        {
+        'load' : float 
+        'rep' : int
+        'plur' : int
+        'spell' : int
+        'punct' : int
+        'excess' : int
+        'past' : float
+        }
+        """
         out = {}
         if self.emotional:
             out['loaded language'] = self._emotional_feature(text)
@@ -38,22 +51,36 @@ class FeatureBased:
             out['punctuation mistakes'] = self._punctuation_feature(text)
         if self.excessivity:
             out['excessivity'] = self._excessivity_feature(text)
+        if self.past:
+            out['past'] = self._past_feature(text)
 
-        tokens = [token.text for token in self.prep_doc]
-        ratio = int(len(tokens)*0.2)
-        if out['loaded language'][0] < 0 \
-        and out['lexical repetitions'][0] > ratio \
-        and out['plural forms'][0] > ratio \
-        and out['spelling mistakes'][0] > ratio \
-        and out['punctuation mistakes'][0] > ratio \
-        and out['excessivity'] is True \
-        and out['past'] is True:
-            answer = True
+        if params:
+            if out['loaded language'][0] < params['load'] \
+            and out['lexical repetitions'][0] > params['rep'] \
+            and out['plural forms'][0] > params['plur'] \
+            and out['spelling mistakes'][0] > params['spell'] \
+            and out['punctuation mistakes'][0] > params['punct'] \
+            and out['excessivity'][0] > params['excess'] or out['excessivity'][1] is True \
+            and out['past'][0] > params['past']:
+                answer = True
+            else:
+                answer = False
+
         else:
-            answer = False
+            tokens = [token.text for token in self.prep_doc]
+            ratio = int(len(tokens)*0.2)
+            if out['loaded language'][0] < 0 \
+            and out['lexical repetitions'][0] > ratio \
+            and out['plural forms'][0] > ratio \
+            and out['spelling mistakes'][0] > ratio \
+            and out['punctuation mistakes'][0] > ratio \
+            and out['excessivity'][0] > 5 or out['excessivity'][1] is True \
+            and out['past'][0] > 0.5:
+                answer = True
+            else:
+                answer = False
 
         return answer, out
-
 
     def _emotional_feature(self, text):
         if self.text != text:
@@ -118,10 +145,7 @@ class FeatureBased:
         if res:
             mult_excl_mark = True
             excl_num = len(res.group())
-        if excl_mark > 5 or mult_excl_mark:
-            return True, excl_mark + excl_num
-        else:
-            return False, 0
+        return excl_mark, mult_excl_mark
 
         
     def _past_feature(self, text):
@@ -130,7 +154,7 @@ class FeatureBased:
             self.prep_doc = self.nlp(text)
         past = [x.text for x in self.prep_doc if x.morph.get('Tense') == ['Past']]
         all_tenses = sum([1 for x in self.prep_doc if x.morph.get('Tense') != []])
-        if len(past)/all_tenses > 0.5:
-            return True, past
-        else:
-            return False, []
+        try:
+            return len(past)/all_tenses, past
+        except ZeroDivisionError:
+            return 0, []
