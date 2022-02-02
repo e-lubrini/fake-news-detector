@@ -12,10 +12,14 @@ See [app/requirements.txt](https://raw.githubusercontent.com/e-lubrini/oaks/main
 
 ## Installation intructions
 From the terminal:
+- clone the repository (`git clone https://github.com/e-lubrini/oaks/`)
 - `cd` to the _oaks/app/_ folder
 - _(recommended)_ create and activate an environment (e.g. `python3 -m venv venv; source venv\bin\activate`  
 - `pip install -e .`
 
 ## Usage guide
+The command `python3 pipeline.py [https://article_url.com]` will output the likelihood of the article being fake, in the form of a percentage. 
+
 
 ## How to reproduce our experiments
+...
