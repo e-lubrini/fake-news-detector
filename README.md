@@ -4,6 +4,31 @@
 ## Abstract
 The aim of this project is to develop a software that provides users with a probability value reflecting the likelihood of an inputted news article being fake. To achieve this, a multi-modal pipeline was implemented, by ensembling the results from 4 different modules (rule-based, neural network, cross-checking, and knowledge-base algorithm). The app is accessible to the users through a user-friendly GUI at [website-domain-pending.fr](website.com).
 
+## Repo Structure
+
+
+    ├── app/
+    |   ├── backend/
+    |   |   ├── cross_checking_approach/
+    |   |   ├── neural_network_approach/
+    |   |   ├── feature_based_approach/
+    |   |   ├── knowledge_base_approach/
+    |   |   ├── pipeline.py
+    |   |   └── ensemble.py
+    |   └── frontend/website/
+    |   |   ├── static/           # styling files (.css, .js, ...)
+    |   |   ├── templates/        # .html pages
+    |   |   ├── run.sh
+    |   |   └── app.py
+    ├── cited_articles           
+    ├── presentations            
+    ├── report                   
+    ├── .gitingnore
+    ├── LICENSE
+    ├── docker-compose.yml
+    └── README.md
+
+
 ## Dependencies
 See [app/requirements.txt](https://raw.githubusercontent.com/e-lubrini/oaks/main/app/requirements.txt) for full dependency list with versions.
 
