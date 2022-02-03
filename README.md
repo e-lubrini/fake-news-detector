@@ -16,10 +16,10 @@ The aim of this project is to develop a software that provides users with a prob
     |   |   ├── pipeline.py
     |   |   └── ensemble.py
     |   └── frontend/website/
-    |   |   ├── static/           # styling files (.css, .js, ...)
-    |   |   ├── templates/        # .html pages
-    |   |   ├── run.sh
-    |   |   └── app.py
+    |       ├── static/           # styling files (.css, .js, ...)
+    |       ├── templates/        # .html pages
+    |       ├── run.sh
+    |       └── app.py
     ├── cited_articles/           
     ├── presentations/            
     ├── report/                   
