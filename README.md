@@ -16,7 +16,12 @@ From the terminal:
 - `pip install -e .`
 
 ## Usage guide
+### Command line usage
 The command `python3 pipeline.py [https://article_url.com]` will output the likelihood of the article being fake, in the form of a percentage. 
+
+### Docker usage
+- Switch to the root directory (`/fake-news-detector`)
+- run `docker compose up` in the terminal
 
 
 ## How to reproduce our experiments
