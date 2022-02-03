@@ -24,5 +24,3 @@ The command `python3 pipeline.py [https://article_url.com]` will output the like
 - run `docker compose up` in the terminal
 - the website will be available at http://127.0.0.1:5000
 
-## How to reproduce our experiments
-...
