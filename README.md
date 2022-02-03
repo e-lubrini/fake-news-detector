@@ -20,7 +20,7 @@ From the terminal:
 The command `python3 pipeline.py [https://article_url.com]` will output the likelihood of the article being fake, in the form of a percentage. 
 
 ### Docker usage
-- Switch to the root directory (`/fake-news-detector`)
+- switch to the root directory (`/fake-news-detector`)
 - run `docker compose up` in the terminal
 - the website will be available at http://127.0.0.1:5000
 
