@@ -1,5 +1,5 @@
 <h1 align="center">Online App for Knowledge Substantiation</h2>
-<div style="text-align:center"><img width="250" src=https://github.com/e-lubrini/fake-news-detector/blob/main/img/logos/logo_g.png /></div>
+<div style="text-align:center"><img width="450" src=https://github.com/e-lubrini/fake-news-detector/blob/main/img/logos/logo_g.png /></div>
 
 ## Abstract
 The aim of this project is to develop a software that provides users with a probability value reflecting the likelihood of an inputted news article being fake. To achieve this, a multi-modal pipeline was implemented, by ensembling the results from 4 different modules (rule-based, neural network, cross-checking, and knowledge-base algorithm). The app is accessible to the users through a user-friendly GUI at [website-domain-pending.fr](website.com).
@@ -20,9 +20,9 @@ The aim of this project is to develop a software that provides users with a prob
     |   |   ├── templates/        # .html pages
     |   |   ├── run.sh
     |   |   └── app.py
-    ├── cited_articles           
-    ├── presentations            
-    ├── report                   
+    ├── cited_articles/           
+    ├── presentations/            
+    ├── report/                   
     ├── .gitingnore
     ├── LICENSE
     ├── docker-compose.yml
