@@ -23,3 +23,11 @@ bashCmd = 'curl -X GET "http://wit.istc.cnr.it/stlab-tools/fred/?text=' + encode
 process = subprocess.Popen(bashCmd,
                             shell=True,
                             stdout=subprocess.PIPE)
+
+## Extract classes with Sparql
+#e.g.
+#PREFIX dbr: <http://dbpedia.org/resource/>
+#PREFIX dbo: <http://dbpedia.org/ontology/>
+#SELECT ?class WHERE {
+#  dbr:Horse dbo:class ?class
+#}
