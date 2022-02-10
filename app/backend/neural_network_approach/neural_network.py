@@ -1,10 +1,10 @@
+import matplotlib.pyplot as plt
+import nltk
 import os
 from collections import Counter
 from itertools import product
 from statistics import mean, mode, median
 
-import matplotlib.pyplot as plt
-import nltk
 nltk.download('stopwords')
 import pandas as pd
 import torch
@@ -23,6 +23,7 @@ from transformers import BertTokenizerFast, RobertaTokenizerFast, AlbertTokenize
 nltk.download('punkt')
 
 tokenize = TweetTokenizer()
+
 
 class Dataset(torch.utils.data.Dataset):
     def __init__(self, texts, labels, maxlen, word2token, device):
@@ -46,7 +47,7 @@ class Dataset(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.texts)
-    
+
 
 class RNNclassifier(nn.Module):
     def __init__(self, device, emb_size, num_classes=1, dropout=0.4, hidden_size=100):
@@ -57,9 +58,10 @@ class RNNclassifier(nn.Module):
         self.dropout = nn.Dropout(dropout).to(self.device)
         self.num_classes = num_classes
         self.embedding = nn.Embedding(self.emb_size, self.hidden_size).to(self.device)
-        self.rnn = nn.LSTM(self.hidden_size, self.hidden_size, num_layers=2, bidirectional=True, batch_first=True).to(self.device)
-        
-        self.linear = nn.Linear(self.hidden_size*2, self.num_classes).to(self.device)
+        self.rnn = nn.LSTM(self.hidden_size, self.hidden_size, num_layers=2, bidirectional=True, batch_first=True).to(
+            self.device)
+
+        self.linear = nn.Linear(self.hidden_size * 2, self.num_classes).to(self.device)
 
     def forward(self, tokens, attention_ids, length):
         embs = self.embedding(tokens)
@@ -68,11 +70,12 @@ class RNNclassifier(nn.Module):
         output_zero_padding = drop_out.permute([2, 0, 1]) * attention_ids
         output_zero_padding = output_zero_padding.permute([1, 2, 0])
         out = torch.sum(output_zero_padding, 1).T / length
-        #out = torch.sum(drop_out, 1).T / length
+        # out = torch.sum(drop_out, 1).T / length
         out = out.T
         out = self.linear(out)
         return out
-    
+
+
 def train_model(model, dataloader, dev_dataloader, epoches, optim=optim.RMSprop, lr=0.01):
     optimizer = optim(model.parameters(), lr=lr)  # Adam, AdamW, Adadelta, Adagrad, SGD, RMSProp
     binary = nn.BCEWithLogitsLoss()
@@ -109,6 +112,7 @@ def train_model(model, dataloader, dev_dataloader, epoches, optim=optim.RMSprop,
             model.zero_grad()
     return best_f
 
+
 def evaluate(model, test_dataloader):
     predicted = []
     true = []
@@ -119,15 +123,15 @@ def evaluate(model, test_dataloader):
             predicted.append(idx)
             true.append(label.item())
     print(classification_report(true, predicted))
-    
-    
+
+
 class NeuralNetwork:
     def __init__(self, nn_type, device):
         self.nn_type = nn_type
         self.word2token = {'PAD': 0, 'UNK': 1}
         self.device = device
         self.model = None
-        
+
     def fit(self, X_train=None, y_train=None, X_val=None, y_val=None, ckpt=None, w2t=None):
         if ckpt:
             with open(w2t, 'rb') as handle:
@@ -146,12 +150,12 @@ class NeuralNetwork:
             with open('word2token.pkl', 'wb') as handle:
                 pickle.dump(self.word2token, handle, protocol=pickle.HIGHEST_PROTOCOL)
         return self.model
-    
+
     def evaluate(self, X_test, y_test):
         testds = Dataset(X_test, y_test, 50, self.word2token, self.device)
         test_dataloader = torch.utils.data.DataLoader(testds, batch_size=1)
         evaluate(self.model, test_dataloader)
-        
+
     def predict(self, sent):
         testds = Dataset([tokenize.tokenize(sent)], [0], 50, self.word2token, self.device)
         test_dataloader = torch.utils.data.DataLoader(testds, batch_size=1)
@@ -159,10 +163,8 @@ class NeuralNetwork:
             for sentence, length, attention_ids, label in test_dataloader:
                 pred = self.model(sentence, attention_ids, length)
                 idx = (torch.sigmoid(pred) > 0.5).type(torch.int).item()
-        return idx
-        
-        
-            
+        return idx, torch.sigmoid(pred).item()
+
     def fill_dict(self, X_train):
         all_words = set()
         for text in X_train:

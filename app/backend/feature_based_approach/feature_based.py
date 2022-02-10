@@ -55,27 +55,29 @@ class FeatureBased:
             out['past'] = self._past_feature(text)
 
         if params:
-            if out['loaded language'][0] < params['load'] \
-            and out['lexical repetitions'][0] > params['rep'] \
-            and out['plural forms'][0] > params['plur'] \
-            and out['spelling mistakes'][0] > params['spell'] \
-            and out['punctuation mistakes'][0] > params['punct'] \
-            and out['excessivity'][0] > params['excess'] or out['excessivity'][1] is True \
-            and out['past'][0] > params['past']:
+            votes = [out['loaded language'][0] < params['load'],
+                     out['lexical repetitions'][0] > params['rep'],
+                     out['plural forms'][0] > params['plur'],
+                     out['spelling mistakes'][0] > params['spell'],
+                     out['punctuation mistakes'][0] > params['punct'],
+                     out['excessivity'][0] > params['excess'] or out['excessivity'][1] is True,
+                     out['past'][0] > params['past']]
+            if any(votes):
                 answer = True
             else:
                 answer = False
 
         else:
             tokens = [token.text for token in self.prep_doc]
-            ratio = int(len(tokens)*0.2)
-            if out['loaded language'][0] < 0 \
-            and out['lexical repetitions'][0] > ratio \
-            and out['plural forms'][0] > ratio \
-            and out['spelling mistakes'][0] > ratio \
-            and out['punctuation mistakes'][0] > ratio \
-            and out['excessivity'][0] > 5 or out['excessivity'][1] is True \
-            and out['past'][0] > 0.5:
+            ratio = int(len(tokens) * 0.2)
+            votes = [out['loaded language'][0] < 0,
+                     out['lexical repetitions'][0] > ratio,
+                     out['plural forms'][0] > ratio,
+                     out['spelling mistakes'][0] > ratio,
+                     out['punctuation mistakes'][0] > ratio,
+                     out['excessivity'][0] > 5 or out['excessivity'][1] is True,
+                     out['past'][0]]
+            if any(votes):
                 answer = True
             else:
                 answer = False
@@ -147,7 +149,6 @@ class FeatureBased:
             excl_num = len(res.group())
         return excl_mark, mult_excl_mark
 
-        
     def _past_feature(self, text):
         if self.text != text:
             self.text = text
@@ -155,6 +156,6 @@ class FeatureBased:
         past = [x.text for x in self.prep_doc if x.morph.get('Tense') == ['Past']]
         all_tenses = sum([1 for x in self.prep_doc if x.morph.get('Tense') != []])
         try:
-            return len(past)/all_tenses, past
+            return len(past) / all_tenses, past
         except ZeroDivisionError:
             return 0, []

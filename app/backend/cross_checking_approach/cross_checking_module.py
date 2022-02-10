@@ -1,9 +1,10 @@
-from statistics import mean
 import torch
-from summa.summarizer import summarize
 from GoogleNews import GoogleNews
 from sklearn.metrics.pairwise import cosine_similarity
-from transformers import BertTokenizer, BertModel, PegasusForConditionalGeneration, PegasusTokenizer, AlbertTokenizer, AlbertModel
+from statistics import mean
+from summa.summarizer import summarize
+from transformers import BertTokenizer, BertModel, PegasusForConditionalGeneration, PegasusTokenizer, AlbertTokenizer, \
+    AlbertModel
 
 
 class CrossChecking:
@@ -18,7 +19,7 @@ class CrossChecking:
         output2 = self.model(**encoded_input2)
         result = cosine_similarity(output1['pooler_output'].detach().numpy(), output2['pooler_output'].detach().numpy())
         return result[0]
-    
+
     def news_similarity(self, original, texts):
         probs = []
         if texts != []:
@@ -64,7 +65,8 @@ class Summarizer:
             output = output[0]
 
         return output
-    
+
+
 class CheckText:
     def __init__(self, summarizer='textrank', threshold=0.96, emb_model='albert-large-v2'):
         self.summarizer = summarizer
@@ -74,12 +76,12 @@ class CheckText:
         model = AlbertModel.from_pretrained(emb_model)
         self.crosschecking = CrossChecking(tokenizer, model)
         self.newsretrieval = NewsRetrieval()
-        
+
     def check(self, text):
         if len(text.split()) > 512:
             text = self.summarizer.summarize(text)
         texts = self.newsretrieval.retrieve(text)
         score = self.crosschecking.news_similarity(text, texts)
         if score > self.threshold:
-            return True
-        return False
+            return True, score
+        return False, score
