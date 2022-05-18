@@ -1,4 +1,4 @@
-<h1 align="center">Online App for Knowledge Substantiation</h2>
+<h1 align="center">Online App for Knowledge Substantiation</h1>
 <div style="text-align:center"><img width="450" src=https://github.com/e-lubrini/fake-news-detector/blob/main/img/logos/logo_g.png /></div>
 
 ## Abstract
