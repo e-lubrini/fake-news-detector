@@ -1,28 +1,22 @@
 import matplotlib.pyplot as plt
 import nltk
 import os
-from collections import Counter
-from itertools import product
-from statistics import mean, mode, median
-
-nltk.download('stopwords')
 import pandas as pd
+import pickle
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+from collections import Counter
+from itertools import product
 from nltk.tokenize import TweetTokenizer, word_tokenize
 from sklearn.metrics import classification_report, f1_score
 from sklearn.model_selection import train_test_split
+from statistics import mean, mode, median
 from torch import optim
-import pickle
 from tqdm.auto import tqdm
-from transformers import AutoModel
-from transformers import BertModel, RobertaModel, AlbertModel, BartForSequenceClassification
-from transformers import BertTokenizerFast, RobertaTokenizerFast, AlbertTokenizerFast, BartTokenizer
+from transformers import BertModel, BertTokenizerFast
 
 nltk.download('punkt')
-
-tokenize = TweetTokenizer()
+nltk.download('stopwords')
 
 
 class Dataset(torch.utils.data.Dataset):
@@ -92,11 +86,13 @@ def train_model(model, dataloader, dev_dataloader, epoches, optim=optim.RMSprop,
                 predicted = []
                 true = []
                 with torch.no_grad():
+                    model.eval()
                     for sentence, length, attention_ids, label in dev_dataloader:
                         pred = model(sentence, attention_ids, length)
                         idx = (torch.sigmoid(pred) > 0.5).type(torch.int).item()
                         predicted.append(idx)
                         true.append(label.item())
+                    model.train()
                 f1 = f1_score(true, predicted, average='macro')
                 if f1 > best_f:
                     model.eval()
@@ -131,6 +127,7 @@ class NeuralNetwork:
         self.word2token = {'PAD': 0, 'UNK': 1}
         self.device = device
         self.model = None
+        self.tokenize = TweetTokenizer()
 
     def fit(self, X_train=None, y_train=None, X_val=None, y_val=None, ckpt=None, w2t=None):
         if ckpt:
@@ -157,7 +154,7 @@ class NeuralNetwork:
         evaluate(self.model, test_dataloader)
 
     def predict(self, sent):
-        testds = Dataset([tokenize.tokenize(sent)], [0], 50, self.word2token, self.device)
+        testds = Dataset([self.tokenize.tokenize(sent)], [0], 50, self.word2token, self.device)
         test_dataloader = torch.utils.data.DataLoader(testds, batch_size=1)
         with torch.no_grad():
             for sentence, length, attention_ids, label in test_dataloader:

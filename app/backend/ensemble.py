@@ -1,6 +1,7 @@
 import pickle
-import torch
 from time import time
+
+import torch
 
 from .cross_checking_approach.cross_checking_module import CheckText
 from .feature_based_approach.feature_based import FeatureBased
