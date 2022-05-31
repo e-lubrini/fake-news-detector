@@ -7,6 +7,19 @@ from textblob import Word
 
 
 class FeatureBased:
+    """
+    Checking the presence of the linguistic feature of fake news
+    
+    Attributes:
+        emotional : float - loaded language feature
+        repetitions : int - repetitions feature
+        plural : int - plural words feature
+        spelling : int - spell-checking feature 
+        punctuation : int - punctuation-checking feature
+        excessivity : int - excessive usage of exclamation marks feature
+        past : float - past tense usage feature
+        explanation : dict - full output of each feature
+    """
     def __init__(self, emotional=True, repetitions=True, plural=True, spelling=True,
                  explanation=True, punctuation=True, excessivity=True, past=True):
         self.explanation = explanation
@@ -29,13 +42,13 @@ class FeatureBased:
         """
         params (dict) :
         {
-        'load' : float 
-        'rep' : int
-        'plur' : int
-        'spell' : int
-        'punct' : int
-        'excess' : int
-        'past' : float
+        'load' : float - loaded language feature
+        'rep' : int - repetitions feature
+        'plur' : int - plural words feature
+        'spell' : int - spell-checking feature 
+        'punct' : int - punctuation-checking feature
+        'excess' : int - excessive usage of exclamation marks feature
+        'past' : float - past tense usage feature
         }
         """
         out = {}

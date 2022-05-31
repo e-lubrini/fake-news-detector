@@ -20,6 +20,15 @@ nltk.download('stopwords')
 
 
 class Dataset(torch.utils.data.Dataset):
+    """
+    A class for creating a dataset for training a model
+    Attributes:
+        texts : iterable - texts used for training
+        labels : iterable - lables of the texts used for training
+        maxlen : int - maximum length of a sentence for training
+        word2token : dict - a dictionary to convert words into digits for training a model
+        device : str - device to use for training (gpu or cpu)
+    """
     def __init__(self, texts, labels, maxlen, word2token, device):
         self.texts = texts
         self.labels = labels
@@ -44,6 +53,15 @@ class Dataset(torch.utils.data.Dataset):
 
 
 class RNNclassifier(nn.Module):
+    """
+    A class for training an RNN-based classifier
+    Attributes:
+        device : str - device to use for training (gpu or cpu)
+        emb_size : int - size of the word embedding layer
+        num_classes : int - number of classes to train on
+        dropout : float - ratio of dropout level during the training
+        hidden_size : int - size of the hidden layer of the LSTM
+    """
     def __init__(self, device, emb_size, num_classes=1, dropout=0.4, hidden_size=100):
         super(RNNclassifier, self).__init__()
         self.device = device
@@ -71,6 +89,18 @@ class RNNclassifier(nn.Module):
 
 
 def train_model(model, dataloader, dev_dataloader, epoches, optim=optim.RMSprop, lr=0.01):
+    """
+    A function to train a torch model
+
+    Parameters:
+        model : torch model - a model that will be trained
+        dataloader : torch dataloader - a dataloader that contains the data for training
+        dev_dataloader : torch dataloader - a dataloader that contains the data for validating
+        epoches : int - number of epochs during which the training will last
+        optim : torch optimizer - an optimizer to use for the network weights update
+        lr : float - a learning rate to use for the weights update
+
+    """
     optimizer = optim(model.parameters(), lr=lr)  # Adam, AdamW, Adadelta, Adagrad, SGD, RMSProp
     binary = nn.BCEWithLogitsLoss()
     best_f = 0
@@ -110,6 +140,13 @@ def train_model(model, dataloader, dev_dataloader, epoches, optim=optim.RMSprop,
 
 
 def evaluate(model, test_dataloader):
+    """
+    A function to evaluate a torch model
+
+    Parameters:
+        model : torch model - a model that will be evaluated
+        test_dataloader : torch dataloader - a dataloader that contains the data for evaluating
+    """
     predicted = []
     true = []
     with torch.no_grad():
@@ -122,6 +159,13 @@ def evaluate(model, test_dataloader):
 
 
 class NeuralNetwork:
+    """
+    A class for training and evaluating a neural network model
+
+    Attributes:
+        nn_type : str - an NN architecture to use for training (currently only LSTM is supported)
+        device : str - device to use for training (gpu or cpu)
+    """
     def __init__(self, nn_type, device):
         self.nn_type = nn_type
         self.word2token = {'PAD': 0, 'UNK': 1}

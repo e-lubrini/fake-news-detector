@@ -1,13 +1,20 @@
+from statistics import mean
+
 import torch
 from GoogleNews import GoogleNews
 from sklearn.metrics.pairwise import cosine_similarity
-from statistics import mean
 from summa.summarizer import summarize
-from transformers import BertTokenizer, BertModel, PegasusForConditionalGeneration, PegasusTokenizer, AlbertTokenizer, \
-    AlbertModel
+from transformers import PegasusForConditionalGeneration, PegasusTokenizer, AlbertTokenizer, AlbertModel
 
 
 class CrossChecking:
+    """
+    Checking the cosine similarity between a candidate text and all the texts found on Google news
+
+    Attributes:
+        tokenizer : transformers tokenizer - a tokenizer to use for embedding extraction
+        model : transformers model -   a model to use for embedding extraction
+    """
     def __init__(self, tokenizer, model):
         self.tokenizer = tokenizer
         self.model = model
@@ -30,6 +37,13 @@ class CrossChecking:
 
 
 class NewsRetrieval:
+    """
+    Retrieving relevant news from Google News
+
+    Attributes:
+        period : str - a period of time to check, for example, '7d'
+        top_n : int - top-N articles to use for cross-checkin
+    """
     def __init__(self, period=None, top_n=20):
         if period:
             self.googlenews = GoogleNews(period=period)
@@ -45,6 +59,13 @@ class NewsRetrieval:
 
 
 class Summarizer:
+    """
+    Summarizing a candidate text if it is too long to be processed by a Transformer model
+
+    Attributes:
+        length : int - number of words that should be produced by a summarizer
+        model_name : str -  summarizer to use if a candidate text is too long. two choices: textrank, pegasus
+    """
     def __init__(self, length=32, model_name='textrank'):
         self.length = length
         if model_name == 'textrank':
@@ -68,6 +89,14 @@ class Summarizer:
 
 
 class CheckText:
+    """
+    Main class for checking if there are other articles on the Internet stating the same thing as a candidate text
+
+    Attributes:
+        summarizer : str - summarizer to use if a candidate text is too long. two choices: textrank, pegasus
+        threshold : float - a threshold after which a candidate text is considered as real
+        emb_model : str - a transformers model to use for cosine similarity computation
+    """
     def __init__(self, summarizer='textrank', threshold=0.96, emb_model='albert-large-v2'):
         self.summarizer = summarizer
         self.threshold = threshold
