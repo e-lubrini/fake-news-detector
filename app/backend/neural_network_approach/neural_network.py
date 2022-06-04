@@ -1,16 +1,16 @@
-import matplotlib.pyplot as plt
-import nltk
-import os
-import pandas as pd
-import pickle
-import torch
-import torch.nn as nn
 from collections import Counter
 from itertools import product
+import pickle
+from statistics import mean, mode, median
+
+import matplotlib.pyplot as plt
+import nltk
 from nltk.tokenize import TweetTokenizer, word_tokenize
+import pandas as pd
 from sklearn.metrics import classification_report, f1_score
 from sklearn.model_selection import train_test_split
-from statistics import mean, mode, median
+import torch
+import torch.nn as nn
 from torch import optim
 from tqdm.auto import tqdm
 from transformers import BertModel, BertTokenizerFast
